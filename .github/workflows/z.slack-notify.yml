@@ -11,7 +11,9 @@ permissions:jobs:
       - name: Slack notify
         uses: slackapi/slack-github-action@v2.1.1
         with:
+          method: chat.postMessage
           channel-id: C0AH12Y8GKZ
+          method-token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
               "attachments": [
@@ -36,5 +38,4 @@ permissions:jobs:
                 }
               ]
             }
-          env:
-            bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+
