@@ -28,6 +28,8 @@ jobs:
   preview:
     name: "preview"
     runs-on: ubuntu-latest
+    outputs:
+      TF_PLAN_EXITCODE: ${{ steps.plan.outcome }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -50,6 +52,8 @@ jobs:
         run: |
           terraform validate -no-color
       - name: Terraform plan
+        id: plan
+        continue-on-error: true
         run: |
           terraform plan \
             -var "project=${{ env.TF_PROJECT }}" \
@@ -59,5 +63,36 @@ jobs:
             -input=false \
             -no-color \
             -detailed-exitcode
+      - name: Slack notify
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          method: chat.postMessage
+          payload: |
+            {
+              "channel": "C0AH12Y8GKZ",
+              "attachments": [
+                {
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Request for approve",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+
 
 # YAML（ヤムル）における |（パイプ）は、「ここから下は、改行を含めた複数行のテキスト（リテラル）です」**という合図
