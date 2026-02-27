@@ -56,8 +56,8 @@ jobs:
             -var "environment=${{ env.TF_ENVIRONMENT }}" \
             -var "username=${{ secrets.MYSQL_USERNAME }}" \
             -var "password=${{ secrets.MYSQL_PASSWORD }}" \
-            -input=false
-            -no-color
+            -input=false \
+            -no-color \
             -detailed-exitcode
 
 # YAML（ヤムル）における |（パイプ）は、「ここから下は、改行を含めた複数行のテキスト（リテラル）です」**という合図
