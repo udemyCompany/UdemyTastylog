@@ -14,6 +14,7 @@ permissions:
   contents: read
 
 env:
+  AWS_REGION: ap-northeast-1
   TF_VERSION: 1.1.7
 
 defaults:
@@ -33,4 +34,13 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
       - name: Terraform format
-        run: terraform fmt -check
+        run: |
+          terraform fmt -check
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ env.AWS_REGION}}
+          role-to-assume: ${{ secret.AWS_AIM_ROLE_ARN}}
+      - name: Terraform init
+        run: |
+          terraform init -no-color
