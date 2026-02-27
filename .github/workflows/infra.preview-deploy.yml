@@ -44,5 +44,8 @@ jobs:
       - name: Terraform init
         run: |
           terraform init -no-color
+      - name: Terraform validate
+        run: |
+          terraform validate -no-color
 
 # YAML（ヤムル）における |（パイプ）は、「ここから下は、改行を含めた複数行のテキスト（リテラル）です」**という合図
