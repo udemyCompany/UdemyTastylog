@@ -9,12 +9,12 @@ terraform {
       version = "~> 3.0"
     }
   }
-  backend "s3" {
-    bucket  = "{YOUR-S3-BUCKET-NAME}"
-    key     = "{YOUR-S3-BUCKET-KEY}"
-    region  = "ap-northeast-1"
-    profile = "terraform"
-  }
+#  backend "s3" {
+#    bucket  = "{YOUR-S3-BUCKET-NAME}"
+#    key     = "{YOUR-S3-BUCKET-KEY}"
+#    region  = "ap-northeast-1"
+#    profile = "pf-1-sandbox-sso"
+#  }
 }
 
 # ---------------------------------------------
