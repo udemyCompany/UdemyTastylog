@@ -40,7 +40,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6
         with:
           aws-region: ${{ env.AWS_REGION}}
-          role-to-assume: ${{ secret.AWS_AIM_ROLE_ARN}}
+          role-to-assume: ${{ secrets.AWS_AIM_ROLE_ARN}}
       - name: Terraform init
         run: |
           terraform init -no-color
+
+# YAML（ヤムル）における |（パイプ）は、「ここから下は、改行を含めた複数行のテキスト（リテラル）です」**という合図
