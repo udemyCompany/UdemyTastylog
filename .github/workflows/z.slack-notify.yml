@@ -15,11 +15,11 @@ jobs:
       - name: Slack notify
         uses: slackapi/slack-github-action@v2.1.1
         with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           method: chat.postMessage
-          channel-id: C0AH12Y8GKZ
-          method-token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
+              "channel": "C0AH12Y8GKZ",
               "attachments": [
                 {
                   "blocks": [
